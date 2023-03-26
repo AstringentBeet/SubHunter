@@ -15,7 +15,6 @@
 - [Author](#author)
 - [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 The objective of this game is to find and destroy the enemy sub' in as few moves as possible. The player takes the shot and each time guesses the location of the sub' by taking into account the distance feedback (or sonar ping) from all of the previous shots. 
@@ -52,16 +51,32 @@ Users should be:
 ## My process
 Utilize the android api to create a blank screen. This will allow me to create a grid display.
 
+  ![Flowchart of Sub Hunter](/Users/alex/Pictures/misc/csProjects/SubHunter-flowchart.jpg)
+As the flowchart shows:
+
+1. The game is launched by tapping on its icon in the app drawer (or by running it through Android Studio)
+2. The sub' is placed in a random location by generating random horizontal and vertical numbers. The score is set to zero if this is not the first play of the game.
+3. Next, everything is drawn to the screen: The gird-lines and text (heads-up display or HUD), including the debugging text (if enabled).
+4. At this point, the game does nothing. It is waiting for the player to tap on the screen.
+5. When the player taps on the screen, the pixel has been tapped is converted into a location on a grid, and that location is compared to the location of the sub'. The <b>hit?</b> diamond illustrates this comparison. Here, the program could branch back to the drawing phase to redraw everything, including the grid location.
+6. Alternatively, if there was a hit, then the <b>BOOM!</b> screen is shown.
+7. In fact, the <b>BOOM!</b> part isn't exactly as we see it there. <b>Wait for input</b> phase also handles waiting for a screen tap at this point. When the screen is tapped again, it is considered the first shot of the next game; the flow of the code moves back to the <b>Spawn Reset Score</b> code, and the whole process starts again. This will become clearer as the project progresses.
+
+
 ### Progress Log
 
-#### 03/22/23
+#### 03/22/23; 3:34am
 Created the first half of the main main layout. Using Android API, all it is right now is a blank screen, which is a start. The next step is to create the grids, followed along with the score/hint board that updates the user with every tap/touch, giving hints as to where the hidden sub' is.
+
+#### 03/24/23; 2:21pm
+Slowly connecting the pieces together. The app utilizes the `onCreate()` method to call on both the `newGame()` and `draw()` method to initiate the <b>Wait for Input</b> phase. Once the user taps the screen, the `onTouchEvent()` method will be realized calling the `takeShot()` method. If the user managed to land a hit and sink an enemy sub, the game is reset using the `draw()` method called by `takeShot()`. 
 
 
 ### Built with
 
 - Java
 - Android Studio
+- Android API
 
 ### What I learned
 
