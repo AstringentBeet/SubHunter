@@ -68,8 +68,30 @@ As the flowchart shows:
 #### 03/22/23; 3:34am
 Created the first half of the main main layout. Using Android API, all it is right now is a blank screen, which is a start. The next step is to create the grids, followed along with the score/hint board that updates the user with every tap/touch, giving hints as to where the hidden sub' is.
 
-#### 03/24/23; 2:21pm
+#### 03/25/23; 10:21pm
 Slowly connecting the pieces together. The app utilizes the `onCreate()` method to call on both the `newGame()` and `draw()` method to initiate the <b>Wait for Input</b> phase. Once the user taps the screen, the `onTouchEvent()` method will be realized calling the `takeShot()` method. If the user managed to land a hit and sink an enemy sub, the game is reset using the `draw()` method called by `takeShot()`. 
+
+#### 03/28/23; 10:00am
+Adding variables to the class. 
+- We need to know how many pixels wide and high the screen will be comprised of.
+  - These variables will be referred to as `numberHorizontalPixels` and `numberVericalPixels`. These will be an `int` type.
+- We'll then need to calculate the overall size of each block for the grid we'll create. This will be an `int` type
+  - the variable for this will be referred to as the `blockSize`. This will be an `int` type.
+- Once the block size has been established, we'll need to calculate the number of blocks required to fit the user's respective screen.
+  - The variables for this will be `gridWidth` and `gridHeight`. These will be an `int` type.
+- When the user touches the screen, we'll need to remember the coordinates that were touched. These values need to be precise.
+  - The variables will be a `float` type named `horizontalTouched` and `verticalTouched`.
+- Because the sub will be spawned in any random location on the screen, choosing and keeping track of the sub's location is necessary.
+  - We'll call these variables `subHorizontalPosition` and `subVeritcalPosition`. These will also be an `int` type.
+- Each time the user takes a shot, we'll need to know whether or not the sub' was hit.
+  - Naturally, this variable will be labeled `hit`. This type will be `boolean`.
+- The `shotsTaken` variable will be of the `int` type, and as its name suggests, will be used to count the number of shots the player has taken so far.
+- The `distanceFromSub` variable will be used to store the calculated distance of the player's most recent shot from the sub'. It will be an `int` type variable.
+- And to finish it off, we need to know whether we want to output all of the debugging text or just show the game, so we'll use a `boolean` variable named `debugging`.
+
+A good number of these variables are left blank or given arbitrary values. I plan on adding code that'll detect the resolution of the screen size. This will subsequently help determine the grid and block size variables.
+On another note, the android API is unbelievably convenient. calculating the screen resolution is much easier than I thought it would be thanks to the both the `Display` and `Point` classes and their methods. To further specify the coordinates of the screen, I'll use the `Point` class' `x` and `y` methods to pinpoint the precise coordinates on the grid.
+I also added more instructions for the `printDebuggingText` method to execute on launch. 
 
 
 ### Built with
@@ -82,10 +104,3 @@ Slowly connecting the pieces together. The app utilizes the `onCreate()` method 
 
 
 ### Useful resources
-
-
-## Author
-
-- Website - [Alex](https://astringentbeet.github.io/ratingPage/)
-- Frontend Mentor - [@AstringentBeet](https://www.frontendmentor.io/profile/AstringentBeet)
-

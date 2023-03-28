@@ -35,13 +35,27 @@ import java.util.Random;
 * Once the player has destroyed the sub', the next tap on the screen will
 * spawn a new sub' in a random location and the game starts again.
 *
-* In addition to the game itself, the game will display debugging
+* In addition to the game itself, the app will display debugging
 * information in order to perform tests and check whether everything is
 * working as it should be.
 */
 
 /**** Android API ****/
 public class SubHunter extends Activity {
+
+    int numberHorizontalPixels;
+    int numberVerticalPixels;
+    int blockSize;
+    int gridWidth = 40;
+    int gridHeight;
+    float horizontalTouched = -100;
+    float verticalTouched = -100;
+    int subHorizontalPosition;
+    int subVerticalPosition;
+    boolean hit = false;
+    int shotsTaken;
+    int distanceFromSub;
+    boolean debugging = true;
 
     /**** One-off setup ****/
     /*
@@ -55,6 +69,19 @@ public class SubHunter extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+        //getting device's current screen resolution.
+        Display display =
+                getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        /*
+         * Initialize the size-based variables
+         * based on the screen resolution
+         */
+        numberHorizontalPixels = size.x;
+        numberVerticalPixels = size.y;
+        blockSize = numberHorizontalPixels / gridWidth;
+        gridHeight = numberVerticalPixels / blockSize;
         Log.d("Debugging", "In onCreate");
         newGame();
         draw();
@@ -71,7 +98,7 @@ public class SubHunter extends Activity {
         Log.d("Debugging", "In newGame");
     }
 
-    /**** Draw Grid; Draw HUD ****/
+    /**** Draw Grid; Draw Heads-up-display (HUD) ****/
     /*
     * Here, we will do all the drawing. The grid lines, the
     * HUD and the touch indicator.
@@ -81,6 +108,7 @@ public class SubHunter extends Activity {
         //handle all drawings here.
         //waiting for the onTouchEvent() and takeShot() method.
         Log.d("Debuging", "In draw()");
+        printDebuggingText();
     }
 
     /**** Wait for Input, Player takes Shot; Was Target Hit? (If not, carry on) ****/
@@ -113,7 +141,19 @@ public class SubHunter extends Activity {
     //This code prints the debugging test.
     void printDebuggingText()
     {
-
+        Log.d("number of horizontal pixels: ", "" + numberHorizontalPixels);
+        Log.d("Number of vertical pixels: ", "" + numberVerticalPixels);
+        Log.d("Block size: ", "" + blockSize);
+        Log.d("Grid width: ", "" + gridWidth);
+        Log.d("Grid Height: ", "" + gridHeight);
+        Log.d("Touched, horizontal location: ", "" + horizontalTouched);
+        Log.d("Touched, vertical location: ", "" + verticalTouched);
+        Log.d("Sub-horizontal position: ", "" + subHorizontalPosition);
+        Log.d("Sub-vertical position: ", "" + subVerticalPosition);
+        Log.d("User's hit coordinates: ", "" + hit);
+        Log.d("Number of shots player has made: ", "" + shotsTaken);
+        Log.d("Currently debugging? ", "" + debugging);
+        Log.d("Distance from sub: ", "" + distanceFromSub);
     }
 
 }
