@@ -91,8 +91,28 @@ A good number of these variables are left blank or given arbitrary values. I pla
 On another note, the android API is unbelievably convenient. calculating the screen resolution is much easier than I thought it would be thanks to the both the `Display` and `Point` classes and their methods. To further specify the coordinates of the screen, I'll use the `Point` class' `x` and `y` methods to pinpoint the precise coordinates on the grid.
 I also added more instructions for the `printDebuggingText` method to execute on launch. 
 
-#### 04/03/23
+#### 04/03/23; 10:29pm
 I updated the `newGame()` method that actually resets both the sub-horizontal and the sub-vertical position with every launch. Next step is to add a GUI.
+
+#### 04/04/23; 9:02am
+- Every App needs an **Activity** class to interact with the user and the underlying operating system.
+- The **ImageView** class, which is a type of **view** class, is what **Activity** need s to display our game to the player.
+- The **Canvas** class supplies the *ability* to draw. It has all the methods for doing such things such as drawing shapes , text, lines, image files, and even plotting individual pixels.
+- The **Bitmap** class is associated with the **Canvas** class and it is the surface that gets drawn on.
+- The **Canvas** class uses the **Paint** class to configure details such as color.
+- Once the **Bitmap** class has been drawn on, we must associate it with the **ImageView** class, which, in turn, is set as the view for the **Activity** class.
+
+#### 04/04/23; 3:24pm
+The Canvas class has a method, `drawLine()` that will allow me to create a grid required to play the game. The way the API is setup to handle a GUI is similar to CSS and Javascript. Anyways, the parameters for `drawLine`:
+```
+(starting horizontal coordinate, starting vertical coordinate,
+ending horizontal coordinate, ending vertical coordinate,
+our Paint object);
+```
+Quick note on the parameters listed above:
+The reason to multiply the blockSize by `1` is to create a new line, establishing a single block. Considering that we need to create a grid, we need more horizontal and vertical lines, but we'll need the assistance of loops to save us unnecessary lines of code.
+
+When determining the size of the text, such as the one in the HUD, using `blockSize` in the calculation will make the position relative to the many different sizes of screen that this game might be played on.
 
 ### Built with
 

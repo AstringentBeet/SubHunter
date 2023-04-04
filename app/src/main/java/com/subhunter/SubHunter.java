@@ -57,11 +57,17 @@ public class SubHunter extends Activity {
     int distanceFromSub;
     boolean debugging = true;
 
+    //Declaring drawing objects...
+    ImageView gameView;
+    Bitmap blankBitmap;
+    Canvas canvas;
+    Paint paint;
+
     /**** One-off setup ****/
     /*
     * Android runs this code just before the player sees the
-    * app. This makes it a good place to add the code for the
-    * one-time setup phase. Thankfully, it is auto-generated
+    * app. This makes it a good place to add the code for its
+    * one-time setup. Thankfully, it is auto-generated
     * by Android Studio.
     */
     @Override
@@ -82,6 +88,15 @@ public class SubHunter extends Activity {
         numberVerticalPixels = size.y;
         blockSize = numberHorizontalPixels / gridWidth;
         gridHeight = numberVerticalPixels / blockSize;
+
+        //Initializing Objects...
+        blankBitmap = Bitmap.createBitmap
+                (numberHorizontalPixels, numberVerticalPixels, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(blankBitmap);
+        gameView = new ImageView(this);
+        paint = new Paint();
+        setContentView(gameView);
+
         Log.d("Debugging", "In onCreate");
         newGame();
         draw();
@@ -112,6 +127,42 @@ public class SubHunter extends Activity {
     {
         //handle all drawings here.
         //waiting for the onTouchEvent() and takeShot() method.
+        gameView.setImageBitmap(blankBitmap);
+        canvas.drawColor(Color.argb(255, 255, 255, 255));
+
+        //change the paint color to black
+        paint.setColor(Color.argb(255, 0, 0, 0));
+        /*
+         * Draw the vertical lines of the grid
+         * canvas.drawLine(blockSize * 1, 0,
+         *              blockSize * 1, numberVerticalPixels -1, paint);
+         * Horizontal lines.
+         * canvas.drawLine(0, blockSize,
+         *      numberHorizontalPixels -1, blockSize, paint);
+         */
+
+        //Drawing the vertical lines of the grid...
+        for(int i = 0; i < gridWidth; i++)
+        {
+            canvas.drawLine(blockSize * i, 0,
+                    blockSize * i , numberVerticalPixels, paint);
+        }
+
+        //Drawing the horizontal lines of the grid...
+        for(int i = 0; i < gridHeight; i++)
+        {
+            canvas.drawLine(0, blockSize * i,
+                    numberHorizontalPixels, blockSize * i, paint);
+        }
+
+        //Setting the size of the text appropriate for the
+        //score and distance display:
+        paint.setTextSize(blockSize * 2);
+        paint.setColor(Color.argb(255, 0, 0, 255));
+        canvas.drawText("Shots Taken: " + shotsTaken +
+                " Distance: " + distanceFromSub, blockSize * 1,
+                blockSize * 1.75f, paint);
+
         Log.d("Debuging", "In draw()");
         printDebuggingText();
     }
@@ -145,19 +196,32 @@ public class SubHunter extends Activity {
     //This code prints the debugging test.
     void printDebuggingText()
     {
-        Log.d("number of horizontal pixels: ", "" + numberHorizontalPixels);
-        Log.d("Number of vertical pixels: ", "" + numberVerticalPixels);
-        Log.d("Block size: ", "" + blockSize);
-        Log.d("Grid width: ", "" + gridWidth);
-        Log.d("Grid Height: ", "" + gridHeight);
-        Log.d("Touched, horizontal location: ", "" + horizontalTouched);
-        Log.d("Touched, vertical location: ", "" + verticalTouched);
-        Log.d("Sub-horizontal position: ", "" + subHorizontalPosition);
-        Log.d("Sub-vertical position: ", "" + subVerticalPosition);
-        Log.d("User's hit coordinates: ", "" + hit);
-        Log.d("Number of shots player has made: ", "" + shotsTaken);
-        Log.d("Currently debugging? ", "" + debugging);
-        Log.d("Distance from sub: ", "" + distanceFromSub);
+         paint.setTextSize(blockSize);
+         canvas.drawText("number of horizontal pixels: " +
+                 numberHorizontalPixels, 50, blockSize * 3, paint);
+         canvas.drawText("Number of vertical pixels: " +
+                 numberVerticalPixels, 50, blockSize * 4, paint);
+         canvas.drawText("Block size: " +
+                 blockSize, 50, blockSize * 5, paint);
+         canvas.drawText("Grid width: " +
+                 gridWidth, 50, blockSize * 6, paint);
+         canvas.drawText("Grid Height: " +
+                 gridHeight, 50, blockSize * 7, paint);
+         canvas.drawText("Horizontal coordinate touched: " +
+                 horizontalTouched, 50, blockSize * 8, paint);
+         canvas.drawText("Vertical coordinates touched: " +
+                 verticalTouched, 50, blockSize * 9, paint);
+         canvas.drawText("Sub' horizontal position: " +
+                 subHorizontalPosition, 50, blockSize * 10, paint);
+         canvas.drawText("Sub' vertical position: " +
+                 subVerticalPosition, 50, blockSize * 11, paint);
+         canvas.drawText("Hit? " +
+                 hit, 50, blockSize * 12, paint);
+         canvas.drawText("Shots taken: " +
+             shotsTaken, 50, blockSize * 13, paint);
+         canvas.drawText("Debugging: " +
+                 debugging, 50, blockSize * 14, paint);
+
     }
 
 }
