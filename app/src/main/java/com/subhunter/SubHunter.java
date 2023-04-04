@@ -95,6 +95,11 @@ public class SubHunter extends Activity {
     */
     public void newGame()
     {
+        Random random = new Random();
+        subHorizontalPosition = random.nextInt(gridWidth);
+        subVerticalPosition = random.nextInt(gridHeight);
+        shotsTaken = 0;
+
         Log.d("Debugging", "In newGame");
     }
 
@@ -136,7 +141,6 @@ public class SubHunter extends Activity {
     {
 
     }
-
 
     //This code prints the debugging test.
     void printDebuggingText()

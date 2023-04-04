@@ -38,9 +38,7 @@ Users should be:
 - Given hints as to where the submarine is located.
 - Able to win the game once the character manages to find the correct location of the hidden sub'.
 
-### Screenshot
-
-![](./screenshot.jpg)
+### Screenshot!
 
 
 ### Links
@@ -51,7 +49,7 @@ Users should be:
 ## My process
 Utilize the android api to create a blank screen. This will allow me to create a grid display.
 
-  ![Flowchart of Sub Hunter](/Users/alex/Pictures/misc/csProjects/SubHunter-flowchart.jpg)
+![Flowchart of Sub Hunter](images/SubHunter-flowchart.jpg)
 As the flowchart shows:
 
 1. The game is launched by tapping on its icon in the app drawer (or by running it through Android Studio)
@@ -93,6 +91,8 @@ A good number of these variables are left blank or given arbitrary values. I pla
 On another note, the android API is unbelievably convenient. calculating the screen resolution is much easier than I thought it would be thanks to the both the `Display` and `Point` classes and their methods. To further specify the coordinates of the screen, I'll use the `Point` class' `x` and `y` methods to pinpoint the precise coordinates on the grid.
 I also added more instructions for the `printDebuggingText` method to execute on launch. 
 
+#### 04/03/23
+I updated the `newGame()` method that actually resets both the sub-horizontal and the sub-vertical position with every launch. Next step is to add a GUI.
 
 ### Built with
 
